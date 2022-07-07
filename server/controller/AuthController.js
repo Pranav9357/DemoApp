@@ -34,7 +34,7 @@ const login = (req, res, next) => {
   var username = req.body.username;
   var password = req.body.password;
 
-  User.findOne({ $or: { username: username } }).then((user) => {
+  User.findOne({ username: username }).then((user) => {
     if (user) {
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
@@ -67,10 +67,20 @@ const login = (req, res, next) => {
 };
 
 const getAll = (req, res) => {
-  
+  User.find().then(response => {
+    res.json({
+      response
+    })
+  })
+  .catch(err => {
+    res.json({
+      message: 'An error Occured!'
+    })
+  })  
 }
 
 module.exports = {
   register,
   login,
+  getAll
 };
