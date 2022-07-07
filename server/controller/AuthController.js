@@ -12,7 +12,7 @@ const register = (req, res, next) => {
 
     let user = new User({
       username: req.body.username,
-      password: hashedPass
+      password: hashedPass,
     });
 
     user
@@ -31,6 +31,7 @@ const register = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
+  console.log("req", req);
   var username = req.body.username;
   var password = req.body.password;
 
@@ -43,10 +44,11 @@ const login = (req, res, next) => {
           });
         }
         if (result) {
+          console.log("result,", result);
           let token = jwt.sign(
             { username: user.username },
-            process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME }
+            'secretkeyvalue',
+            { expiresIn: '2h' }
           );
           res.json({
             message: "Login Successfully!",

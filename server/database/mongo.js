@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const getMongoUri = require('./mongoConstant')
+const { getMongoUri } = require('./mongoConstant')
+
 
 const mongoConnector = () => {
     let db
