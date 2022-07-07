@@ -3,6 +3,7 @@ const app = express();
 const http = require('http')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const mongoConnector = require('./database/mongo')
 
 const AuthRoute = require('./routes/auth')
 
@@ -11,6 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
 app.use('/api' , cors(), AuthRoute)
 app.use(cors())
+mongoConnector()
 
 if (process.env.NODE_ENV !== 'test'){
     const server = http.createServer(app);
